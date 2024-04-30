@@ -1,0 +1,26 @@
+todo
+
+1.  product overlay: -----------|-|
+2.  categories: ----------------|DONE|  (products.html)
+3.  subcategories: -------------|DONE|  (products.html)
+4.  categories + subs page -----|DONE|
+4.  products in categories: ----|DONE|
+5.  products in subcategories: -|DONE|
+6.  login: ---------------------|DONE|
+7.  logout: --------------------|DONE|
+8.  registration: --------------|DONE|
+9.  flash msgs -----------------||
+10. home page ------------------|DONE|
+11. account page ---------------||
+12. edit account ---------------||
+13. staff account --------------||
+14. edit product ---------------||
+15. email after reg ------------|DONE|
+16. reviews --------------------||
+17. rating ---------------------||
+18. implement image compression ||
+19. reviews pagination (opt) ---||
+
+
+andrewsafonovpost@gmail.com
+pqkvjciekuimqcfa

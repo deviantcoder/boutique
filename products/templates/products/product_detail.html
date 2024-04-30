@@ -1,0 +1,202 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+      <section class="py-5">
+        <div class="container">
+          <div class="row mb-5">
+            <div class="col-lg-6">
+
+            <!-- PRODUCT SLIDER-->
+              <div class="row m-sm-0">
+                <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0 px-xl-2">
+                  <div class="swiper product-slider-thumbs">
+                    <div class="swiper-wrapper">
+
+                        {% for image in product.productimage_set.all %}
+                            {% if image.is_main %}
+                                <div class="swiper-slide h-auto swiper-thumb-item mb-3">
+                                    <img class="w-100" src="{{ image.image.url }}" alt="...">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% for image in product.productimage_set.all %}
+                            {% if not image.is_main %}
+                                <div class="swiper-slide h-auto swiper-thumb-item mb-3">
+                                    <img class="w-100" src="{{ image.image.url }}" alt="...">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-10 order-1 order-sm-2">
+                  <div class="swiper product-slider">
+                    <div class="swiper-wrapper">
+
+                    {% if product.productimage_set.all %}
+                    {% for image in product.productimage_set.all %}
+                        {% if image.is_main %}
+                            <div class="swiper-slide h-auto">
+                                <a class="glightbox product-view" href="{{ image.image.url }}" data-gallery="gallery2" data-glightbox="Product item 1">
+                                    <img class="img-fluid" style="height: auto; width: auto; object-fit: cover;" src="{{ image.image.url }}" alt="...">
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for image in product.productimage_set.all %}
+                        {% if not image.is_main %}
+                            <div class="swiper-slide h-auto">
+                                <a class="glightbox product-view" href="{{ image.image.url }}" data-gallery="gallery2" data-glightbox="Product item 1">
+                                    <img class="img-fluid" src="{{ image.image.url }}" alt="...">
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% else %}
+                        <div class="swiper-slide h-auto">
+                                <a class="glightbox product-view" href="{{ product.image.url }}" data-gallery="gallery2" data-glightbox="Product item 1">
+                                    <img class="img-fluid" src="{{ product.image.url }}" alt="...">
+                                </a>
+                            </div>
+                    {% endif %}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- PRODUCT DETAILS-->
+            <div class="col-lg-6">
+
+            {% include 'products/rating.html' %}
+            <p class="text-sm mb-4">({{ product.votes_total }} Vote{{ product.votes_total|pluralize:'s' }})</p>
+
+              <h1>{{ product.title }}</h1>
+              <p class="text-muted lead">${{ product.price }}</p>
+              <p class="text-sm mb-4">{{ product.description }}</p>
+              <div class="row align-items-stretch mb-4">
+                <div class="col-sm-5 pr-sm-0">
+                  <div class="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white"><span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
+                    <div class="quantity">
+                      <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
+                      <input class="form-control border-0 shadow-0 p-0" type="text" value="1">
+                      <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="cart.html">Add to cart</a></div>
+              </div><a class="text-dark p-0 mb-4 d-inline-block" href="#!"><i class="far fa-heart me-2"></i>Add to wish list</a><br>
+              <ul class="list-unstyled small d-inline-block">
+                <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">SKU:</strong><span class="ms-2 text-muted">{{ product.sku_number }}</span></li>
+                    <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Category:</strong><a class="reset-anchor ms-2" href="#!">{{ product.category.name }}</a></li>
+                <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Subcategory:</strong>{% for sub in product.subcategory.all %}<a class="reset-anchor ms-2" href="#!">{{ sub.name }}&nbsp&nbsp</a>{% endfor %}</li>
+                <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Tags:</strong>{% for tag in product.tags.all %}<a class="reset-anchor ms-2" href="#!">#{{ tag.name }}&nbsp&nbsp</a>{% endfor %}</li>
+              </ul>
+            </div>
+          </div>
+          <!-- DETAILS TABS-->
+          <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+            <li class="nav-item"><a class="nav-link text-uppercase active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a></li>
+            <li class="nav-item"><a class="nav-link text-uppercase" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a></li>
+          </ul>
+          <div class="tab-content mb-5" id="myTabContent">
+            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+              <div class="p-4 p-lg-5 bg-white">
+                <h6 class="text-uppercase">Product description </h6>
+                <p class="text-muted text-sm mb-0">{{ product.description }}</p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+              <div class="p-4 p-lg-5 bg-white">
+                <div class="row">
+                  <div class="col-lg-8">
+
+                    {% if request.user.profile.id in product.reviewers %} 
+                      <p>You have already submitted a review</p>
+                    {% elif request.user.is_authenticated %}
+                      <form method="POST">
+                          {% csrf_token %}
+                          <div class="col-lg-8">
+                            
+                            {% for field in form %}
+                                <label class="form-label"><strong class="small text-uppercase fw-bold">{{ field.label }}</strong></label>
+                                {{ field }}
+                            {% endfor %}
+
+                          </div>
+
+                          <button class="btn btn-primary mt-1" type="submit">Submit</button>
+                      </form>
+                      {% else %}
+                      <a href="{% url 'login_user' %}?next={% url 'product' product.id %}" class="small text-uppercase dark">Login to leave a review</a>
+                      {% endif %}   
+                  <br>
+
+                    {% for review in product.review_set.all %}
+
+                        <div class="d-flex">
+                        <div class="flex-shrink-0"><img class="rounded-circle" src="{% static 'images/profile_default.png' %}" alt="" width="50"/></div>
+                        <div class="ms-3 flex-shrink-1">
+                        <h6 class="mb-0 text-uppercase">{{ review.user.first_name }} {{ review.user.last_name }}</h6>
+                        <p class="small text-muted mb-0 text-uppercase">{{ review.created }}</p>
+                        <ul class="list-inline mb-1 text-xs">
+                            {% for star in review.vote_range %}
+                                <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
+                            {% endfor %}
+                        </ul>
+
+                        <p class="text-sm mb-0 text-muted">{{ review.body }}</p>
+                        </div>
+                        </div>
+
+                    {% endfor %}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- RELATED PRODUCTS-->
+          <h2 class="h5 text-uppercase mb-4">Related products</h2>
+          <div class="row">
+            <!-- PRODUCT-->
+
+          {% for r_product in related_products|slice:4 %}
+            <div class="col-lg-3 col-sm-6">
+              <div class="product text-center skel-loader">
+                <div class="d-block mb-3 position-relative">
+                    <a class="d-block" href="{% url 'product' r_product.id %}">
+                        {% if r_product.main_image %}
+                            <img class="img-fluid w-100" style="height: 190px; width: auto" src="{{ r_product.main_image.image.url }}" alt="...">
+                        {% else %}
+                            <img class="img-fluid w-100" style="height: 190px; width: auto" src="{{ r_product.image.url }}" alt="...">
+                        {% endif %}
+                    </a>
+                  <div class="product-overlay">
+                    <ul class="mb-0 list-inline">
+                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#!"><i class="far fa-heart"></i></a></li>
+                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="#!">Add to cart</a></li>
+                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#productView" data-bs-toggle="modal"><i class="fas fa-expand"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <h6> <a class="reset-anchor" href="detail.html">{{ r_product.title }}</a></h6>
+                <p class="small text-muted">${{ r_product.price }}</p>
+              </div>
+            </div>
+          {% endfor %}
+
+          </div>
+        </div>
+      </section>
+
+{% endblock %}

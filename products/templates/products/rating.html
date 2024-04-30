@@ -1,0 +1,12 @@
+<ul class="list-inline mb-2 text-sm mt-1">
+{% if product.rating_range %}
+    {% for star in product.rating_range %}
+        <li class="list-inline-item m-0"><i class="fas fa-star large text-warning"></i></li>
+    {% endfor %}
+
+{% else %}
+    <li class="list-inline-item m-0">
+        <strong class="small text-uppercase fw-bold">No rating yet</strong>
+    </li>
+{% endif %}
+</ul>

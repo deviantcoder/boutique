@@ -1,0 +1,27 @@
+{% if queryset.has_other_pages %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center justify-content-lg-end">
+
+        <li class="page-item mx-1"><a class="page-link" href="?search_query={{ search_query }}&page=1" aria-label="Previous"><span aria-hidden="true">&#10094;&#10094;</span></a></li>
+
+        {% if queryset.has_previous %}
+            <li class="page-item mx-1"><a class="page-link" href="?search_query={{ search_query }}&page={{ queryset.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&#10094;</span></a></li>
+        {% endif %}
+
+        {% for page in custom_range %}
+            {% if page == queryset.number %}
+            <li class="page-item mx-1 active"><a class="page-link" href="?search_query={{ search_query }}&page={{ page }}">{{ page }}</a></li>
+            {% else %}
+            <li class="page-item mx-1"><a class="page-link" href="?search_query={{ search_query }}&page={{ page }}">{{ page }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if queryset.has_next %}
+            <li class="page-item ms-1"><a class="page-link" href="?search_query={{ search_query }}&page={{ queryset.next_page_number }}" aria-label="Next"><span aria-hidden="true">&#10095;</span></a></li>
+        {% endif %}
+
+        <li class="page-item ms-1"><a class="page-link" href="?search_query={{ search_query }}&page={{ paginator.num_pages }}" aria-label="Next"><span aria-hidden="true">&#10095;&#10095;</span></a></li>
+
+    </ul>
+</nav>
+{% endif %}

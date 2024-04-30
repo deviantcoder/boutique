@@ -1,0 +1,116 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <!-- HERO SECTION-->
+        <section class="py-5 bg-light">
+          <div class="container">
+            <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+              <div class="col-lg-6">
+                <h1 class="h2 text-uppercase mb-0">{{ category.name }}</h1>
+              {% if page == 'pr_in_sub' %}
+                  <br>
+                  <h5 class="text-uppercase mb-4 breadcrumb-item active">/{{ subcategory.name }}</h5>
+              {% endif %}
+              </div>
+              <div class="col-lg-6 text-lg-end">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+                    <li class="breadcrumb-item"><a class="text-dark" href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="py-5">
+          <div class="container p-0">
+            <div class="row">
+              <!-- SHOP SIDEBAR-->
+
+            {% include 'products/sidebar.html' %}
+
+              <!-- SHOP LISTING-->
+              <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
+                <div class="row mb-3 align-items-center">
+                  <div class="col-lg-6 mb-2 mb-lg-0">
+                    <p class="text-sm text-muted mb-0">Showing 1–12 of 53 results</p>
+                  </div>
+                  <div class="col-lg-6">
+                    <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
+                      <li class="list-inline-item text-muted me-3"><a class="reset-anchor p-0" href="#!"><i class="fas fa-th-large"></i></a></li>
+                      <li class="list-inline-item text-muted me-3"><a class="reset-anchor p-0" href="#!"><i class="fas fa-th"></i></a></li>
+                      <li class="list-inline-item">
+                        <select class="selectpicker" data-customclass="form-control form-control-sm">
+                          <option value>Sort By </option>
+                          <option value="default">Default sorting </option>
+                          <option value="popularity">Popularity </option>
+                          <option value="low-high">Price: Low to High </option>
+                          <option value="high-low">Price: High to Low </option>
+                        </select>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+
+
+
+                  <!-- PRODUCT-->
+
+                {% for product in products %}
+
+                  <div class="col-lg-4 col-sm-6">
+                    <div class="product text-center">
+                      <div class="mb-3 position-relative">
+                      {% if product.is_new %}
+                          <div class="badge text-white bg-primary">New</div>
+                      {% elif product.is_sale %}
+                          <div class="badge text-white bg-info">Sale</div>
+                      {% elif product.is_sold %}
+                          <div class="badge text-white bg-danger">Sold</div>
+                      {% else %}
+                          <div class="badge text-white bg-"></div>
+                      {% endif %}
+                          <a class="d-block" href="{% url 'product' product.id %}">
+
+                              {% if product.main_image %}
+                                  <img class="img-fluid w-100" style="height: 190px; width: auto" src="{{ product.main_image.image.url }}" alt="...">
+                              {% else %}
+                                  <img class="img-fluid w-100" style="height: 190px; width: auto" src="{{ product.image.url }}" alt="...">
+                              {% endif %}
+
+                          </a>
+                        <div class="product-overlay">
+                          <ul class="mb-0 list-inline">
+                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#!"><i class="far fa-heart"></i></a></li>
+                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.html">Add to cart</a></li>
+{#                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#productView" data-bs-toggle="modal"><i class="fas fa-expand"></i></a></li>#}
+                              {% include 'products/rating.html' %}
+                          </ul>
+                        </div>
+                      </div>
+                      <h6> <a class="reset-anchor" href="{% url 'product' product.id %}">{{ product.title }}</a></h6>
+                      <p class="small text-muted">${{ product.price }}</p>
+                    </div>
+                  </div>
+
+                {% endfor %}
+
+                </div>
+
+
+                <!-- PAGINATION-->
+                {% include 'pagination.html' with queryset=products %}
+
+
+              </div>
+            </div>
+          </div>
+        </section>
+    </div>
+
+
+{% endblock %}
