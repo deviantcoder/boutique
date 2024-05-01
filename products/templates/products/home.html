@@ -33,7 +33,7 @@
                                   {% if collection.body %}
                                   <h1 class="h2 text-uppercase mb-3">{{ collection.body }}</h1>
                                   {% endif %}
-                                  <a class="btn btn-dark" href="">Browse collections</a>
+                                  <a class="btn btn-dark" href="{% url 'collection' collection.id %}">Browse collections</a>
                               </div>
                           </div>
                       </div>

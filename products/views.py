@@ -123,6 +123,24 @@ def products_in_subcategory(request, pk):
     return render(request, 'products/products_in_category.html', context)
 
 
+def products_in_collection(request, pk):
+    page = 'pr_in_col' # products in collection
+
+    collection = Collection.objects.get(id=pk)
+
+    products = collection.product_set.all()
+    categories = Category.objects.all()
+
+    context = {
+        'collection': collection,
+        'products': products,
+        'categories': categories,
+        'page': page,
+    }
+
+    return render(request, 'products/products_in_category.html', context)
+
+
 def home_page(request):
     categories = Category.objects.all()[:3]
     top_products = Product.objects.filter(votes_ratio__gte=61)[:4]
