@@ -79,6 +79,9 @@ class Product(models.Model):
     def reviewers(self):
         queryset = self.review_set.all().values_list('user__id', flat=True)
         return queryset
+    
+    def is_in_cart(self, user):
+        return user.profile.order_set.first().items.filter(product=self).exists()
 
     class Meta:
         ordering = ['-votes_ratio', '-votes_total', 'created']

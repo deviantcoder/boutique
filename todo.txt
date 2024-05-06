@@ -14,12 +14,16 @@ todo
 11. account page ---------------||
 12. edit account ---------------||
 13. staff account --------------||
-14. edit product ---------------||
+14. edit product ---------------|DONE|
 15. email after reg ------------|DONE|
-16. reviews --------------------||
-17. rating ---------------------||
-18. implement image compression ||
+16. reviews --------------------|DONE|
+17. rating ---------------------|DONE| (needs improvement)
+18. implement image compression |DONE| (needs improvement)
 19. reviews pagination (opt) ---||
+20. separate product overlay ---||
+21. cart functionality ---------||
+22. checkout -------------------||
+23. payment functionality ------||
 
 
 andrewsafonovpost@gmail.com

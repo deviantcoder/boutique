@@ -17,6 +17,7 @@ def products_view(request):
         'custom_range': custom_range,
         'paginator': paginator,
         'categories': categories,
+        'user': request.user,
     }
 
     return render(request, 'products/products.html', context)
