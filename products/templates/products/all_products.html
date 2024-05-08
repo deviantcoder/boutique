@@ -1,0 +1,55 @@
+{% load cart_filter %}
+
+<div class="row">
+
+    {% for product in products %}
+
+      <div class="col-lg-4 col-sm-6">
+        <div class="product text-center">
+          <div class="mb-3 position-relative">
+          {% if product.is_new %}
+              <div class="badge text-white bg-primary">New</div>
+          {% elif product.is_sale %}
+              <div class="badge text-white bg-info">Sale</div>
+          {% elif product.is_sold %}
+              <div class="badge text-white bg-danger">Sold</div>
+          {% else %}
+              <div class="badge text-white bg-"></div>
+          {% endif %}
+
+            <a class="d-block" href="{% url 'product' product.id %}">
+
+              <img class="img-fluid w-100 main-product-image" style="height: 190px; width: auto; object-fit: cover;" src="{{ product.main_image.url }}" alt="...">
+                
+            </a>
+            <div class="product-overlay">
+              <ul class="mb-0 list-inline">
+                <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#!"><i class="far fa-heart"></i></a></li>
+
+                {% if user.is_authenticated %}
+                  {% if product|is_in_cart:user %}
+                    <li class="list-inline-item m-0 p-0"><p>Product is already in your cart</p></li>
+                  {% else %}
+                    <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{% url 'cart:add_to_cart' product.id %}?next={{ request.path }}">Add to cart</a></li>  
+                  {% endif %}
+                {% else %}
+                  <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{% url 'login_user' %}?next={% url 'products' %}">Login to add to cart</a></li>
+                {% endif %}
+
+                
+                <br>
+
+                {% include 'products/rating.html' %}
+
+              </ul>
+            </div>
+          </div>
+          <h6 class="product-title"> <a class="reset-anchor" href="{% url 'product' product.id %}">{{ product.title }}</a></h6>
+          <p class="small text-muted product-price">${{ product.price }}</p>
+
+        </div>
+      </div>
+
+    {% endfor %}
+
+  </div>

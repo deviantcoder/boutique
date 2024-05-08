@@ -41,7 +41,7 @@ def add_to_cart(request, pk):
         user_order.ref_code = generate_order_id()
         user_order.save()
 
-    return redirect('products')
+    return redirect(request.GET['next'] if 'next' in request.GET else 'products')
 
 
 @login_required(login_url='login_user')

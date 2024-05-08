@@ -15,20 +15,18 @@
                   <div class="swiper product-slider-thumbs">
                     <div class="swiper-wrapper">
 
-                        {% for image in product.productimage_set.all %}
-                            {% if image.is_main %}
-                                <div class="swiper-slide h-auto swiper-thumb-item mb-3">
-                                    <img class="w-100" src="{{ image.image.url }}" alt="...">
-                                </div>
-                            {% endif %}
-                        {% endfor %}
+                        
+                      <div class="swiper-slide h-auto swiper-thumb-item mb-3">
+                        <img class="w-100" src="{{ product.main_image.url }}" alt="...">
+                      </div>
+                         
 
                         {% for image in product.productimage_set.all %}
-                            {% if not image.is_main %}
-                                <div class="swiper-slide h-auto swiper-thumb-item mb-3">
-                                    <img class="w-100" src="{{ image.image.url }}" alt="...">
-                                </div>
-                            {% endif %}
+                          {% if not image.is_main %}
+                              <div class="swiper-slide h-auto swiper-thumb-item mb-3">
+                                  <img class="w-100" src="{{ image.image.url }}" alt="...">
+                              </div>
+                          {% endif %}
                         {% endfor %}
 
                     </div>
@@ -37,35 +35,22 @@
                 <div class="col-sm-10 order-1 order-sm-2">
                   <div class="swiper product-slider">
                     <div class="swiper-wrapper">
+                    
+                      <div class="swiper-slide h-auto">
+                        <a class="glightbox product-view" href="{{ product.main_image.url }}" data-gallery="gallery2" data-glightbox="Product item 1">
+                          <img class="img-fluid" style="height: auto; width: auto; object-fit: cover;" src="{{ product.main_image.url }}" alt="...">
+                        </a>
+                      </div>
 
-                    {% if product.productimage_set.all %}
-                    {% for image in product.productimage_set.all %}
-                        {% if image.is_main %}
-                            <div class="swiper-slide h-auto">
-                                <a class="glightbox product-view" href="{{ image.image.url }}" data-gallery="gallery2" data-glightbox="Product item 1">
-                                    <img class="img-fluid" style="height: auto; width: auto; object-fit: cover;" src="{{ image.image.url }}" alt="...">
-                                </a>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-
-                    {% for image in product.productimage_set.all %}
-                        {% if not image.is_main %}
-                            <div class="swiper-slide h-auto">
-                                <a class="glightbox product-view" href="{{ image.image.url }}" data-gallery="gallery2" data-glightbox="Product item 1">
-                                    <img class="img-fluid" src="{{ image.image.url }}" alt="...">
-                                </a>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-
-                    {% else %}
-                        <div class="swiper-slide h-auto">
-                                <a class="glightbox product-view" href="{{ product.image.url }}" data-gallery="gallery2" data-glightbox="Product item 1">
-                                    <img class="img-fluid" src="{{ product.image.url }}" alt="...">
-                                </a>
-                            </div>
-                    {% endif %}
+                      {% for image in product.productimage_set.all %}
+                          {% if not image.is_main %}
+                              <div class="swiper-slide h-auto">
+                                  <a class="glightbox product-view" href="{{ image.image.url }}" data-gallery="gallery2" data-glightbox="Product item 1">
+                                      <img class="img-fluid" src="{{ image.image.url }}" alt="...">
+                                  </a>
+                              </div>
+                          {% endif %}
+                      {% endfor %}
 
                     </div>
                   </div>
@@ -176,11 +161,9 @@
               <div class="product text-center skel-loader">
                 <div class="d-block mb-3 position-relative">
                     <a class="d-block" href="{% url 'product' r_product.id %}">
-                        {% if r_product.main_image %}
-                            <img class="img-fluid w-100" style="height: 190px; width: auto" src="{{ r_product.main_image.image.url }}" alt="...">
-                        {% else %}
-                            <img class="img-fluid w-100" style="height: 190px; width: auto" src="{{ r_product.image.url }}" alt="...">
-                        {% endif %}
+       
+                      <img class="img-fluid w-100" style="height: 190px; width: auto" src="{{ r_product.main_image.url }}" alt="...">
+                      
                     </a>
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline">

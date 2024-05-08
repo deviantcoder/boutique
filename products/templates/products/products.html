@@ -2,8 +2,6 @@
 
 {% block content %}
 
-    {% load cart_filter %}
-
       <!--  Modal -->
 
     <div class="modal fade" id="productView" tabindex="-1">
@@ -129,63 +127,8 @@
                     </ul>
                   </div>
                 </div>
-                <div class="row">
 
-                {% for product in products %}
-
-                  <!-- PRODUCT 1-->
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                      <div class="mb-3 position-relative">
-                      {% if product.is_new %}
-                          <div class="badge text-white bg-primary">New</div>
-                      {% elif product.is_sale %}
-                          <div class="badge text-white bg-info">Sale</div>
-                      {% elif product.is_sold %}
-                          <div class="badge text-white bg-danger">Sold</div>
-                      {% else %}
-                          <div class="badge text-white bg-"></div>
-                      {% endif %}
-
-                        <a class="d-block" href="{% url 'product' product.id %}">
-                            {% if product.main_image %}
-                                <img class="img-fluid w-100 main-product-image" style="height: 190px; width: auto; object-fit: cover;" src="{{ product.main_image.image.url }}" alt="...">
-                            {% else %}
-                                <img class="img-fluid w-100 product-image-2" style="height: 190px; width: auto; object-fit: cover;" src="{{ product.image.url }}" alt="...">
-                            {% endif %}
-                        </a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#!"><i class="far fa-heart"></i></a></li>
-
-                            {% if user.is_authenticated %}
-                              {% if product|is_in_cart:user %}
-                                <li class="list-inline-item m-0 p-0"><p>Product is already in your cart</p></li>
-                              {% else %}
-                                <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{% url 'cart:add_to_cart' product.id %}">Add to cart</a></li>  
-                              {% endif %}
-                            {% else %}
-                              <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{% url 'login_user' %}?next={% url 'products' %}">Login to add to cart</a></li>
-                            {% endif %}
-
-                            
-                            <br>
-
-                            {% include 'products/rating.html' %}
-
-                          </ul>
-                        </div>
-                      </div>
-                      <h6 class="product-title"> <a class="reset-anchor" href="{% url 'product' product.id %}">{{ product.title }}</a></h6>
-                      <p class="small text-muted product-price">${{ product.price }}</p>
-
-                    </div>
-                  </div>
-
-                {% endfor %}
-
-
-                </div>
+                {% include 'products/all_products.html' %}
 
                 <!-- PAGINATION-->
                 {% include 'pagination.html' with queryset=products %}
@@ -195,35 +138,5 @@
           </div>
         </section>
       </div>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-{#    <script>#}
-{#        // Обработчик события открытия модального окна#}
-{#        $('#productView').on('show.bs.modal', function (event) {#}
-{#            var button = $(event.relatedTarget);#}
-{#            var productTitle = button.closest('.product').find('.product-title').text();#}
-{#            var productPrice = button.closest('.product').find('.product-price').text();#}
-{#            var productDescription = button.closest('.product').find('.product-description').text();#}
-{#            var modal = $(this);#}
-{##}
-{#            modal.find('.modal-title').text(productTitle);#}
-{#            modal.find('.modal-price').text(productPrice);#}
-{#            modal.find('.modal-description').text(productDescription);#}
-{##}
-{#            var mainImageSrc = button.closest('.product').find('.main-product-image').attr('src');#}
-{#            modal.find('.modal-image').attr('src', mainImageSrc);#}
-{##}
-{#            var image_2 = button.closest('.product').find('.product-image-2').attr('src');#}
-{#            modal.find('.modal-image-2').attr('src', image_2);#}
-{##}
-{#            console.log('Image 2:', image_2);#}
-{##}
-{#            });#}
-{#    </script>#}
-
-
-
 
 {% endblock %}

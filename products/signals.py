@@ -23,4 +23,4 @@ def update_vote_count(sender, instance, **kwargs):
 def image_compressor(sender, instance, created, **kwargs):
     if created:
         with Image.open(instance.image.path) as image:
-            image.save(instance.image.path, quality=10, optimize=True)
+            image.save(instance.image.path, quality=20, optimize=True)

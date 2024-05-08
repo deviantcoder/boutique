@@ -2,5 +2,6 @@ Django/Python:
 
 previous:
 
-1. May 6 2024: 
+1. May 6 2024: 5h.
+2. May 8 2024:
 

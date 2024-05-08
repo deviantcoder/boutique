@@ -18,6 +18,9 @@ class OrderItem(models.Model):
     class Meta:
         ordering = ['product']
 
+    def get_item_price(self):
+        return int(self.product.price * self.quantity)
+
     def __str__(self) -> str:
         return f'{self.product.title} - {self.order_set.first()}'
 
@@ -36,7 +39,7 @@ class Order(models.Model):
         return self.items.all()
     
     def get_cart_total(self):
-        return sum([item.product.price for item in self.items.all()])
+        return sum([item.get_item_price() for item in self.items.all()])
     
     def __str__(self):
         return f'Order: {self.owner} - {self.ref_code}'

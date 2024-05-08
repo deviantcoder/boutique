@@ -33,12 +33,13 @@ class Product(models.Model):
 
     @property
     def main_image(self):
-        main_image = self.productimage_set.filter(is_main=True).first()
-        if main_image:
-            return main_image
+        main_image = self.productimage_set.filter(is_main=True)
+        if main_image.exists():
+            return main_image.first().image
+        elif self.productimage_set.all():
+            return self.productimage_set.all().first().image
         else:
-            main_image = self.productimage_set.all().first()
-            return main_image
+            return self.image
 
     def get_vote_count(self):
         votes_values = self.review_set.all().values_list('value', flat=True)

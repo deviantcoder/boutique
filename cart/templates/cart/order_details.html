@@ -43,7 +43,7 @@
             {% for item in order.get_cart_items %}    
               <tr>
                 <th class="ps-0 py-3 border-light" scope="row">
-                  <div class="d-flex align-items-center"><a class="reset-anchor d-block animsition-link" href="{% url 'product' item.product.id %}"><img src="{{ item.product.main_image.image.url }}" alt="..." width="70"/></a>
+                  <div class="d-flex align-items-center"><a class="reset-anchor d-block animsition-link" href="{% url 'product' item.product.id %}"><img src="{{ item.product.main_image.url }}" alt="..." width="70"/></a>
                     <div class="ms-3"><strong class="h6"><a class="reset-anchor animsition-link" href="{% url 'product' item.product.id %}">{{ item.product.title }}</a></strong></div>
                   </div>
                 </th>
@@ -60,7 +60,7 @@
                   </div>
                 </td>
                 <td class="p-3 align-middle border-light">
-                  <p class="mb-0 small">$250</p>
+                  <p class="mb-0 small">${{ item.get_item_price }}</p>
                 </td>
                 <td class="p-3 align-middle border-light"><a class="reset-anchor" href="{% url 'cart:delete_from_cart' item.id %}"><i class="fas fa-trash-alt small text-muted"></i></a></td>
               </tr>
@@ -74,7 +74,7 @@
         <!-- CART NAV-->
         <div class="bg-light px-4 py-3">
           <div class="row align-items-center text-center">
-            <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm" href="shop.html"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div>
+            <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm" href="{% url 'products' %}"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div>
             
             {% if not order.items.all %}
               <div class="col-md-6 text-md-end">No items in the cart</div>

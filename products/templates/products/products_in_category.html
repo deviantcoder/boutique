@@ -57,52 +57,10 @@
                     </ul>
                   </div>
                 </div>
-                <div class="row">
-
-
-
-                  <!-- PRODUCT-->
-
-                {% for product in products %}
-
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                      <div class="mb-3 position-relative">
-                      {% if product.is_new %}
-                          <div class="badge text-white bg-primary">New</div>
-                      {% elif product.is_sale %}
-                          <div class="badge text-white bg-info">Sale</div>
-                      {% elif product.is_sold %}
-                          <div class="badge text-white bg-danger">Sold</div>
-                      {% else %}
-                          <div class="badge text-white bg-"></div>
-                      {% endif %}
-                          <a class="d-block" href="{% url 'product' product.id %}">
-
-                              {% if product.main_image %}
-                                  <img class="img-fluid w-100" style="height: 190px; width: auto" src="{{ product.main_image.image.url }}" alt="...">
-                              {% else %}
-                                  <img class="img-fluid w-100" style="height: 190px; width: auto" src="{{ product.image.url }}" alt="...">
-                              {% endif %}
-
-                          </a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#!"><i class="far fa-heart"></i></a></li>
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.html">Add to cart</a></li>
-{#                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#productView" data-bs-toggle="modal"><i class="fas fa-expand"></i></a></li>#}
-                              {% include 'products/rating.html' %}
-                          </ul>
-                        </div>
-                      </div>
-                      <h6> <a class="reset-anchor" href="{% url 'product' product.id %}">{{ product.title }}</a></h6>
-                      <p class="small text-muted">${{ product.price }}</p>
-                    </div>
-                  </div>
-
-                {% endfor %}
-
-                </div>
+                
+                
+              
+                {% include 'products/all_products.html' %}
 
 
                 <!-- PAGINATION-->

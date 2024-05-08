@@ -21,9 +21,15 @@ todo
 18. implement image compression |DONE| (needs improvement)
 19. reviews pagination (opt) ---||
 20. separate product overlay ---||
-21. cart functionality ---------||
-22. checkout -------------------||
-23. payment functionality ------||
+21. cart functionality ---------|DONE|
+22. cart prices update ---------|DONE|
+23. checkout -------------------||
+24. payment functionality ------||
+25. improve product.main_image -|DONE|
+26. separate products ----------|DONE|
+27. redirect after add to cart -|DONE|
+28. create favorite products ---||
+29. redirect after favorite ----||
 
 
 andrewsafonovpost@gmail.com
