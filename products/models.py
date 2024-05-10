@@ -83,6 +83,9 @@ class Product(models.Model):
     
     def is_in_cart(self, user):
         return user.profile.order_set.first().items.filter(product=self).exists()
+    
+    def is_in_fav(self, user):
+        return user.profile.favoriteproducts_set.first().items.filter(product=self).exists()
 
     class Meta:
         ordering = ['-votes_ratio', '-votes_total', 'created']

@@ -21,6 +21,7 @@
                 </li>
               </ul>
               <ul class="navbar-nav ms-auto">
+
                 <li class="nav-item"><a class="nav-link" href="{% url 'cart:order_details' %}"> <i class="fas fa-dolly-flatbed me-1 text-gray"></i>Cart
                 
                   {% if request.user.profile.order_set.first.get_cart_items %}
@@ -31,7 +32,10 @@
 
                   {% endif %}
 
-                <li class="nav-item"><a class="nav-link" href="#!"> <i class="far fa-heart me-1"></i><small class="text-gray fw-normal"> (0)</small></a></li>
+                <!-- FAVORITE PRODUCTS -->    
+                  <li class="nav-item"><a class="nav-link" href="{% url 'fav_products' %}"> <i class="far fa-heart me-1"></i><small class="text-gray fw-normal">
+                   ({{ request.user.profile.favoriteproducts_set.first.get_items.count }})
+                  </small></a></li>
 
 
                   {% if request.user.is_authenticated %}

@@ -1,9 +1,8 @@
 todo
 
-1.  product overlay: -----------|-|
-2.  categories: ----------------|DONE|  (products.html)
-3.  subcategories: -------------|DONE|  (products.html)
-4.  categories + subs page -----|DONE|
+1.  categories: ----------------|DONE|  (products.html)
+2.  subcategories: -------------|DONE|  (products.html)
+3.  categories + subs page -----|DONE|
 4.  products in categories: ----|DONE|
 5.  products in subcategories: -|DONE|
 6.  login: ---------------------|DONE|
@@ -19,7 +18,7 @@ todo
 16. reviews --------------------|DONE|
 17. rating ---------------------|DONE| (needs improvement)
 18. implement image compression |DONE| (needs improvement)
-19. reviews pagination (opt) ---||
+19. reviews pagination ---------|| (optional)
 20. separate product overlay ---||
 21. cart functionality ---------|DONE|
 22. cart prices update ---------|DONE|
@@ -28,10 +27,14 @@ todo
 25. improve product.main_image -|DONE|
 26. separate products ----------|DONE|
 27. redirect after add to cart -|DONE|
-28. create favorite products ---||
-29. redirect after favorite ----||
-
+28. add to favorite ------------|DONE|
+29. favorite functionality -----||
+30. separate hero section ------||
+31. improve rating -------------||
+32. dark mode ------------------|| (optional)
+33. refactor fav products ------|| (>wishlist)
+34. 2 imgs in pr detail bug ----||
+35. img compression for all imgs||
 
 andrewsafonovpost@gmail.com
-
-test
+https://github.com/nordhumannn/devsearch/blob/master/projects/templates/projects/project.html

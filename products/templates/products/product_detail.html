@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 
 {% load static %}
+{% load cart_filter %}
 
 {% block content %}
 
@@ -69,17 +70,30 @@
               <p class="text-muted lead">${{ product.price }}</p>
               <p class="text-sm mb-4">{{ product.description }}</p>
               <div class="row align-items-stretch mb-4">
-                <div class="col-sm-5 pr-sm-0">
-                  <div class="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white"><span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
-                    <div class="quantity">
-                      <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                      <input class="form-control border-0 shadow-0 p-0" type="text" value="1">
-                      <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
-                    </div>
+                
+
+              {% if request.user.is_authenticated %}
+                {% if product|is_in_cart:request.user %}
+                <p class="btn-sm btn-block h-100 d-flex ">Product is already in your cart</p>
+                  <div class="col-sm-3 pl-sm-0">
+                    <a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="{% url 'cart:order_details' %}">Go to cart</a>        
                   </div>
-                </div>
-                <div class="col-sm-3 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="cart.html">Add to cart</a></div>
-              </div><a class="text-dark p-0 mb-4 d-inline-block" href="#!"><i class="far fa-heart me-2"></i>Add to wish list</a><br>
+                {% else %}
+                  <div class="col-sm-3 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="{% url 'cart:add_to_cart' product.id %}?next={{ request.path }}">Add to cart</a></div>
+                {% endif %}  
+              {% endif %}
+
+              {% if request.user.is_authenticated %}
+                {% if product|is_in_fav:request.user %}
+                  </div><a class="text-dark p-0 mb-4 d-inline-block" href="{% url 'delete_from_fav' product.id %}?next={{ request.path }}"><i class="fa fa-heart me-2"></i>Already in your wish list</a><br>
+                {% else %}
+                  </div><a class="text-dark p-0 mb-4 d-inline-block" href="{% url 'add_to_fav' product.id %}?next={{ request.path }}"><i class="far fa-heart me-2"></i>Add to wish list</a><br>
+                {% endif %}
+              {% else %}
+                </div><a class="text-dark p-0 mb-4 d-inline-block" href="{% url 'login_user' %}"><i class="far fa-heart me-2"></i>Login to add to wish list</a><br>
+              {% endif %}
+
+
               <ul class="list-unstyled small d-inline-block">
                 <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">SKU:</strong><span class="ms-2 text-muted">{{ product.sku_number }}</span></li>
                     <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Category:</strong><a class="reset-anchor ms-2" href="#!">{{ product.category.name }}</a></li>
