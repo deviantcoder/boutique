@@ -18,7 +18,7 @@ class FavItem(models.Model):
 
 class FavoriteProducts(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    items = models.ManyToManyField(FavItem)
+    items = models.ManyToManyField(FavItem, null=True, blank=True)
 
     id = models.UUIDField(default=uuid4, unique=True, editable=False, primary_key=True)
 

@@ -35,6 +35,7 @@ todo
 33. refactor fav products ------|| (>wishlist)
 34. 2 imgs in pr detail bug ----||
 35. img compression for all imgs||
+36. not auth user products error||
 
 andrewsafonovpost@gmail.com
 https://github.com/nordhumannn/devsearch/blob/master/projects/templates/projects/project.html

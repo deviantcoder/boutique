@@ -37,3 +37,8 @@ def delete_user(sender, instance, **kwargs):
         user.delete()
     except User.DoesNotExist:
         pass
+
+@receiver(post_save, sender=User)
+def create_wishlist_instance(sender, instance, created, **kwargs):
+    if created:
+        
