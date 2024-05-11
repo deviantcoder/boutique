@@ -4,6 +4,8 @@ from .models import Profile
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
+from fav_products.models import FavoriteProducts
+from cart.models import Order
 
 
 @receiver(post_save, sender=User)
@@ -38,7 +40,7 @@ def delete_user(sender, instance, **kwargs):
     except User.DoesNotExist:
         pass
 
-@receiver(post_save, sender=User)
-def create_wishlist_instance(sender, instance, created, **kwargs):
-    if created:
-        
+@receiver(post_save, sender=Profile)
+def create_wishlist_order_instance(sender, instance, created, **kwargs):
+        wish_list = FavoriteProducts.objects.create(owner=instance)
+        order = Order.objects.create(owner=instance)
