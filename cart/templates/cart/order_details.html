@@ -79,7 +79,7 @@
             {% if not order.items.all %}
               <div class="col-md-6 text-md-end">No items in the cart</div>
             {% else %}
-              <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm" href="checkout.html">Proceed to checkout<i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
+              <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm" href="{% url 'cart:order_checkout' %}">Proceed to checkout<i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
             {% endif %}
           </div>
         </div>

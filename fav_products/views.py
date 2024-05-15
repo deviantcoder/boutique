@@ -12,7 +12,7 @@ def get_user_fav_products(request):
 
     if fav_products.exists():
         return fav_products[0]
-    return -1
+    return 0
 
 
 @login_required(login_url='login_user')

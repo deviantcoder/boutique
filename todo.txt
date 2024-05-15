@@ -1,5 +1,3 @@
-todo
-
 1.  categories: ----------------|DONE|  (products.html)
 2.  subcategories: -------------|DONE|  (products.html)
 3.  categories + subs page -----|DONE|
@@ -28,14 +26,23 @@ todo
 26. separate products ----------|DONE|
 27. redirect after add to cart -|DONE|
 28. add to favorite ------------|DONE|
-29. favorite functionality -----||
+29. favorite functionality -----|DONE|
 30. separate hero section ------||
 31. improve rating -------------||
 32. dark mode ------------------|| (optional)
 33. refactor fav products ------|| (>wishlist)
-34. 2 imgs in pr detail bug ----||
+34. 2 imgs in pr detail bug ----|DONE|
 35. img compression for all imgs||
-36. not auth user products error||
+36. not auth user products error|DONE|
+37. try implementing google auth||
+38. img not loading (home page)-|DONE|
+39. show username in reviews ---||
+40. improve is_in_cart method --|DONE|
+41. fix num of items in cart ---|DONE|
+42. fix related prods img deform|DONE|
 
 andrewsafonovpost@gmail.com
 https://github.com/nordhumannn/devsearch/blob/master/projects/templates/projects/project.html
+
+EMAIL_HOST_USER = 'andrewsafonovpost@gmail.com'
+EMAIL_HOST_PASSWORD = 'pqkvjciekuimqcfa'

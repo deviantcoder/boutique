@@ -66,9 +66,6 @@
           </section>
       {% endif %}
 
-
-
-
         <!-- CATEGORIES SECTION-->
         <section class="pt-5">
           <header class="text-center">
@@ -112,11 +109,7 @@
                   <div class="badge text-white bg-"></div>
                     <a class="d-block" href="{% url 'product' product.id %}">
 
-                        {% if product.main_image %}
-                            <img class="img-fluid w-100" style="height: 190px; width: auto; object-fit: cover;" src="{{ product.main_image.image.url }}" alt="...">
-                        {% else %}
-                            <img class="img-fluid w-100" style="height: 190px; width: auto; object-fit: cover;" src="{{ product.image.url }}" alt="...">
-                        {% endif %}
+                      <img class="img-fluid w-100" style="height: 190px; width: auto; object-fit: cover;" src="{{ product.main_image.url }}" alt="...">
 
                     </a>
 

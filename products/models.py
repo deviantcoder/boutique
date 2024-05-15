@@ -23,7 +23,7 @@ class Product(models.Model):
     tags = models.ManyToManyField('Tag', blank=True)
 
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
-    subcategory = models.ManyToManyField('Subcategory', blank=True)
+    subcategory = models.ForeignKey('Subcategory', on_delete=models.SET_NULL, null=True, blank=True)
 
     collection = models.ForeignKey('Collection', on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -82,7 +82,11 @@ class Product(models.Model):
         return queryset
     
     def is_in_cart(self, user):
-        return user.profile.order_set.first().items.filter(product=self).exists()
+        order = user.profile.order_set.all().filter(is_ordered=False)
+        if order.exists():
+            return order[0].items.filter(product=self).exists()
+
+        # return user.profile.order_set.first().items.filter(product=self).exists()
     
     def is_in_fav(self, user):
         return user.profile.favoriteproducts_set.first().items.filter(product=self).exists()

@@ -44,7 +44,12 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'cart.apps.CartConfig',
     'fav_products.apps.FavProductsConfig',
+
+    'cities_light',
 ]
+
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['UA']
+CITIES_LIGHT_TRANSLATION_LANGUAGES = ['en', 'uk']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

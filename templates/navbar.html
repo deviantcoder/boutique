@@ -27,7 +27,11 @@
                   {% if request.user.profile.order_set.first.get_cart_items %}
 
                     <small class="text-gray fw-normal">
-                      ({{ request.user.profile.order_set.first.get_cart_items.count }})
+                      {% for order in request.user.profile.order_set.all %}
+                        {% if order.is_ordered == False %}
+                          ({{ order.get_cart_items.count }})
+                        {% endif %}  
+                      {% endfor %}
                     </small></a></li>
 
                   {% endif %}

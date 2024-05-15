@@ -11,8 +11,6 @@ def products_view(request):
 
     categories = Category.objects.all()
 
-    # print(request.user.favoriteproducts)
-
     context = {
         'products': products,
         'search_query': search_query,

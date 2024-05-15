@@ -27,31 +27,26 @@
 
                 <!-- ADD TO FAV -->
                 {% if user.is_authenticated %}
-                  {% comment %} {% if request.user.profile.favoriteproducts_set.first %} {% endcomment %}
                     {% if product|is_in_fav:user %}
                       <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="{% url 'delete_from_fav' product.id %}?next={{ request.path }}"><i class="fa fa-heart"></i></a></li>
                     {% else %}
                       <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="{% url 'add_to_fav' product.id %}?next={{ request.path }}"><i class="far fa-heart"></i></a></li>
                     {% endif %}
-                  {% comment %} {% endif %} {% endcomment %}
                 {% else %}
                 <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="{% url 'login_user' %}?next={{ request.path }}"><i class="far fa-heart"></i></a></li>
                 {% endif %}
                 
 
                 {% if user.is_authenticated %}
-                  {% comment %} {% if request.user.profile.order_set.first %} {% endcomment %}
                     {% if product|is_in_cart:user %}
                       <li class="list-inline-item m-0 p-0"><p>Product is already in your cart</p></li>
                     {% else %}
                       <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{% url 'cart:add_to_cart' product.id %}?next={{ request.path }}">Add to cart</a></li>  
                     {% endif %}
-                  {% comment %} {% endif %} {% endcomment %}
                 {% else %}
                   <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{% url 'login_user' %}?next={% url 'products' %}">Login to add to cart</a></li>
                 {% endif %}
 
-                
                 <br>
 
                 {% include 'products/rating.html' %}

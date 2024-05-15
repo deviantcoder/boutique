@@ -10,24 +10,22 @@
           <div class="row mb-5">
             <div class="col-lg-6">
 
-            <!-- PRODUCT SLIDER-->
+              <!-- PRODUCT SLIDER-->
               <div class="row m-sm-0">
                 <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0 px-xl-2">
                   <div class="swiper product-slider-thumbs">
                     <div class="swiper-wrapper">
 
                         
-                      <div class="swiper-slide h-auto swiper-thumb-item mb-3">
+                      {% comment %} <div class="swiper-slide h-auto swiper-thumb-item mb-3">
                         <img class="w-100" src="{{ product.main_image.url }}" alt="...">
-                      </div>
+                      </div> {% endcomment %}
                          
 
                         {% for image in product.productimage_set.all %}
-                          {% if not image.is_main %}
-                              <div class="swiper-slide h-auto swiper-thumb-item mb-3">
-                                  <img class="w-100" src="{{ image.image.url }}" alt="...">
-                              </div>
-                          {% endif %}
+                            <div class="swiper-slide h-auto swiper-thumb-item mb-3">
+                              <img class="w-100" src="{{ image.image.url }}" alt="...">
+                            </div>
                         {% endfor %}
 
                     </div>
@@ -146,7 +144,13 @@
                         <div class="d-flex">
                         <div class="flex-shrink-0"><img class="rounded-circle" src="{% static 'images/profile_default.png' %}" alt="" width="50"/></div>
                         <div class="ms-3 flex-shrink-1">
-                        <h6 class="mb-0 text-uppercase">{{ review.user.first_name }} {{ review.user.last_name }}</h6>
+
+                        {% if request.user.profile.first_name and request.user.profile.last_name %}  
+                          <h6 class="mb-0 text-uppercase">{{ review.user.first_name }} {{ review.user.last_name }}</h6>
+                        {% else %}
+                          <h6 class="mb-0 text-uppercase">{{ review.user.profile.username }}</h6>
+                        {% endif %}
+
                         <p class="small text-muted mb-0 text-uppercase">{{ review.created }}</p>
                         <ul class="list-inline mb-1 text-xs">
                             {% for star in review.vote_range %}
@@ -176,7 +180,7 @@
                 <div class="d-block mb-3 position-relative">
                     <a class="d-block" href="{% url 'product' r_product.id %}">
        
-                      <img class="img-fluid w-100" style="height: 190px; width: auto" src="{{ r_product.main_image.url }}" alt="...">
+                      <img class="img-fluid w-100" style="height: 190px; width: auto; object-fit: cover;" src="{{ r_product.main_image.url }}" alt="...">
                       
                     </a>
                   <div class="product-overlay">

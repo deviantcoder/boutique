@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from products.models import Product
 from .utils import generate_order_id
 from django.db.models import F
+from .forms import CheckoutForm
 
 
 def get_user_pending_order(request):
@@ -86,8 +87,39 @@ def checkout(request):
     return render(request, '', context)
 
 
+def update_order(order):
+    order.is_ordered = True
+    order.save()
 
-def cart(request):
-    context = {}
 
-    return render(request, 'cart/order_summary.html', context)
+@login_required(login_url='login_url')
+def order_checkout(request):
+    user_profile = get_object_or_404(Profile, user=request.user)
+    order = get_user_pending_order(request)
+
+    initial_data = {
+        'first_name': user_profile.first_name or '',
+        'last_name': user_profile.last_name or '',
+        'email': user_profile.email or '',
+    }
+
+    form = CheckoutForm(initial=initial_data)
+
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            checkout = form.save(commit=False)
+            checkout.user = user_profile
+            checkout.order = order
+            checkout.save()
+
+            update_order(order)
+
+            return redirect('cart:order_details')
+
+    context = {
+        'form': form,
+        'order': order,
+    }
+
+    return render(request, 'cart/checkout_form.html', context)

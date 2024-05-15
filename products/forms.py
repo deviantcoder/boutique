@@ -13,13 +13,13 @@ class ProductForm(ModelForm):
                   ]
         widgets = {
             'tags': forms.CheckboxSelectMultiple(),
-            'subcategory': forms.CheckboxSelectMultiple(),
+            # 'subcategory': forms.CheckboxSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for name, field in self.fields.items():
-            if name in ('tags', 'subcategory'):
+            if name in ('tags'):
                 field.widget.attrs.update({'class': ''})
             else:
                 field.widget.attrs.update({'class': 'form-control'})
