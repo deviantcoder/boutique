@@ -1,5 +1,7 @@
 {% extends 'main.html' %}
 
+{% load socialaccount %}
+
 {% block content %}
 
 {#    <div class="container-fluid">#}
@@ -48,6 +50,13 @@
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
 
             <button class="btn btn-success btn-block mt-3" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+
+            <p class='text-center'>or</p>
+
+            <a href="{% provider_login_url 'google' %}" class="btn btn btn-danger btn-lg btn-block mt-3" style="color: white;">
+                <i class="fab fa-google"></i> Continue with Google
+            </a>            
+
             <a href="#" id="forgot_pswd" class="d-block text-center my-3">Forgot password?</a>
             <hr>
 
