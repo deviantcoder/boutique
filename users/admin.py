@@ -1,4 +1,14 @@
 from django.contrib import admin
-from .models import Profile
+from .models import Profile, ProfileImage
 
-admin.site.register(Profile)
+
+class ProfileImageInline(admin.StackedInline):
+    model = ProfileImage
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    inlines = [ProfileImageInline]
+
+    class Meta:
+        model = Profile

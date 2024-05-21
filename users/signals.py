@@ -40,7 +40,21 @@ def delete_user(sender, instance, **kwargs):
     except User.DoesNotExist:
         pass
 
+
+@receiver(post_save, sender=Profile)
+def update_user(sender, instance, created, **kwargs):
+    if not created:
+         profile = instance
+         user = profile.user
+         user.username = profile.username
+         user.first_name = profile.first_name
+         user.last_name = profile.last_name
+         user.email = profile.email
+         user.save()
+
+
 @receiver(post_save, sender=Profile)
 def create_wishlist_order_instance(sender, instance, created, **kwargs):
+    if created:
         wish_list = FavoriteProducts.objects.create(owner=instance)
         order = Order.objects.create(owner=instance)

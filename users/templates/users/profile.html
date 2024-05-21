@@ -1,0 +1,115 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+<style>
+  .card-custom {
+    {% comment %} min-height: 500px; /* Пример увеличенной высоты */ {% endcomment %}
+  }
+
+  .card-custom .col-md-4 {
+    background: #6a11cb;  /* Пример градиента */
+    background: -webkit-linear-gradient(to right, #2575fc, #6a11cb);  /* Пример градиента */
+    background: linear-gradient(to right, #2575fc, #6a11cb);  /* Пример градиента */
+  }
+</style>
+
+
+<div class="container py-5 h-10">
+    <section class="py-5 bg-light">
+        <div class="container">
+          <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+            <div class="col-lg-6">
+              <h1 class="h2 text-uppercase mb-0">Profile</h1>
+            </div>
+            <div class="col-lg-6 text-lg-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+                  <li class="breadcrumb-item"><a class="text-dark" href="index.html">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+</div>
+
+<div class="container py-1 mb-5 mt-3 h-10">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-12 mb-4 mb-lg-0">
+        <div class="card mb-3 card-custom">
+          <div class="row g-0 bg-light">
+            <div class="col-md-4 gradient-custom text-center text-white">
+              <img src="{{ profile.profileimage.image.url }}"
+                alt="Avatar" class="img-fluid my-5" style="width: 80px; border-radius: 50%; object-fit: cover;" />
+              <h5>{{ profile.first_name }} {{ profile.last_name }}</h5>
+              <p>@{{ profile.username }}</p>
+              <a href="{% url 'edit_profile' %}" style="color: white;"><i class="far fa-edit mb-5"></i></a>
+              <br>
+              <hr>
+              <a href="{% url 'logout_user' %}" style="color: white;">Log out</a>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Information</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-12 mb-3">
+                    <h6>Email</h6>
+                    <p class="text-muted">{{ profile.email }}</p>
+                  </div>
+                </div>
+
+
+
+                {% comment %} <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Orders:</h6>
+                    {% for order in orders %}
+                        <a href="{% url 'order' order.id %}"><p class="text-muted">Order ({{ forloop.counter }}): {{ order.ref_code }}</p></a>
+                    {% endfor %}
+
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Date ordered:</h6>
+                    {% for order in orders %}
+                        <p class="text-muted">{{ order.ordercheckout.created }}</p>
+                    {% endfor %}
+
+                  </div>
+                </div> {% endcomment %}
+
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Order</th>
+                      <th scope="col">Date ordered</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    {% for order in orders %}
+                      <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="{% url 'order' order.id %}">{{ order.ref_code }}</a></td>
+                        <td>{{ order.ordercheckout.created }}</td>
+                      </tr>
+                    {% endfor %}
+                   
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+{% endblock content %}

@@ -1,21 +1,16 @@
-def renumber_todo_list(input_file):
-    with open(input_file, 'r+') as file:
-        lines = file.readlines()
-        file.seek(0)
-        current_number = 1
+from PIL import Image
 
-        for line in lines:
-            index = line.find('.')
-            if index != -1:
-                number = line[:index]
-                if number.isdigit():
-                    new_line = str(current_number) + line[index:]
-                    current_number += 1
-                    file.write(new_line)
-                else:
-                    file.write(line)
-            else:
-                file.write(line)
-        file.truncate()
+img = Image.open('D:\\django\\boutique\\static\\images\\collection_images\\wp7953969-sunny-retro-ps4-wallpapers_revOH9T.jpg')
 
-renumber_todo_list(input('FILE PATH: '))
+width, height = img.size
+
+min_side = min(img.size)
+
+left = (img.width - min_side) // 2
+top = (img.height - min_side) // 2
+right = (img.width + min_side) // 2
+bottom = (img.height + min_side) // 2
+
+img1 = img.crop((left, top, right, bottom))
+
+img1.show()
