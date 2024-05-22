@@ -1,0 +1,66 @@
+{% load static %}
+
+<!-- PRICE RANGE -->      
+<h6 class="text-uppercase mb-4">Price range</h6>
+<div class="price-range pt-4 mb-5">
+  <div id="range"></div>
+  <div class="row pt-2">
+    <div class="col-6"><strong class="small fw-bold text-uppercase">From</strong></div>
+    <div class="col-6 text-end"><strong class="small fw-bold text-uppercase">To</strong></div>
+  </div>
+</div>
+
+</div>
+
+<!-- JavaScript files-->
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static 'vendor/nouislider/nouislider.min.js' %}"></script>
+<script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'vendor/choices.js/public/assets/scripts/choices.min.js' %}"></script>
+<script src="{% static 'js/front.js' %}"></script>
+<!-- Nouislider Config-->
+<script>
+var range = document.getElementById('range');
+noUiSlider.create(range, {
+range: {
+'min': parseInt({{ min_max_price.price__min }}),
+'max': parseInt({{ min_max_price.price__max }})
+},
+step: 10,
+start: [parseInt({{ min_max_price.price__min }}), parseInt({{ min_max_price.price__max }})],
+margin: 100,
+connect: true,
+direction: 'ltr',
+orientation: 'horizontal',
+behaviour: 'tap-drag',
+tooltips: true,
+format: {
+to: function ( value ) {
+return '$' + Math.round(value);
+},
+from: function ( value ) {
+return value.replace('', '');
+}
+}
+});
+
+range.noUiSlider.on('update', function (values, handle) {
+var minPrice = parseInt(values[0].replace('$', ''));
+var maxPrice = parseInt(values[1].replace('$', ''));
+filterProducts(minPrice, maxPrice);
+});
+
+function filterProducts(minPrice, maxPrice) {
+var products = document.querySelectorAll('.product');
+products.forEach(function(product) {
+var price = parseInt(product.getAttribute('data-price'));
+if (price >= minPrice && price <= maxPrice) {
+product.parentElement.style.display = 'block'; // Показываем товар
+} else {
+product.parentElement.style.display = 'none'; // Скрываем товар
+}
+});
+}
+
+</script>

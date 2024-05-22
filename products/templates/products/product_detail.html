@@ -142,7 +142,17 @@
                     {% for review in product.review_set.all %}
 
                         <div class="d-flex">
-                        <div class="flex-shrink-0"><img class="rounded-circle" src="{% static 'images/profile_default.png' %}" alt="" width="50"/></div>
+                        <div class="flex-shrink-0"><img class="rounded-circle" src="
+                        {% if review.user %}  
+                          {% if review.user.profileimage %}
+                            {{ review.user.profileimage.image.url }}
+                          {% else %}
+                            {{ review.user.image.url }}
+                          {% endif %}
+                        {% else %}
+                          {% static 'images/profile_default.png' %}
+                        {% endif %}
+                          " alt="" width="50"/></div>
                         <div class="ms-3 flex-shrink-1">
 
                         {% if request.user.profile.first_name and request.user.profile.last_name %}  

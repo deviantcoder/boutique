@@ -42,8 +42,15 @@
         <div class="card mb-3 card-custom">
           <div class="row g-0 bg-light">
             <div class="col-md-4 gradient-custom text-center text-white">
-              <img src="{{ profile.profileimage.image.url }}"
-                alt="Avatar" class="img-fluid my-5" style="width: 80px; border-radius: 50%; object-fit: cover;" />
+
+              {% if profile.profileimage %}
+                <img src="{{ profile.profileimage.image.url }}"
+                  alt="Avatar" class="img-fluid my-5" style="width: 80px; border-radius: 50%; object-fit: cover;" />
+              {% else %}
+                <img src="{{ profile.image.url }}"
+                  alt="Avatar" class="img-fluid my-5" style="width: 80px; border-radius: 50%; object-fit: cover;" />
+              {% endif %}
+
               <h5>{{ profile.first_name }} {{ profile.last_name }}</h5>
               <p>@{{ profile.username }}</p>
               <a href="{% url 'edit_profile' %}" style="color: white;"><i class="far fa-edit mb-5"></i></a>

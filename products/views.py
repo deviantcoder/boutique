@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Product, ProductImage, Category, Subcategory, Collection, Review
 from .utils import search_products, pagination
 from .forms import ProductForm, ProductImageFormSet, ReviewForm
+from django.db.models import Min, Max
 
 
 def products_view(request):
@@ -11,6 +12,8 @@ def products_view(request):
 
     categories = Category.objects.all()
 
+    min_max_price = Product.objects.aggregate(Min('price'), Max('price'))
+
     context = {
         'products': products,
         'search_query': search_query,
@@ -18,6 +21,7 @@ def products_view(request):
         'paginator': paginator,
         'categories': categories,
         'user': request.user,
+        'min_max_price': min_max_price,
     }
 
     return render(request, 'products/products.html', context)
@@ -101,6 +105,8 @@ def products_in_category(request, pk):
 
     results = 12
     products, custom_range, paginator = pagination(request, products, results)
+    
+    min_max_price = Product.objects.aggregate(Min('price'), Max('price'))
 
     context = {
         'page': page,
@@ -109,6 +115,7 @@ def products_in_category(request, pk):
         'categories': categories,
         'custom_range': custom_range,
         'paginator': paginator,
+        'min_max_price': min_max_price,
     }
 
     return render(request, 'products/products_in_category.html', context)
@@ -124,6 +131,8 @@ def products_in_subcategory(request, pk):
 
     products, custom_range, paginator = pagination(request, products, results=12)
 
+    min_max_price = Product.objects.aggregate(Min('price'), Max('price'))
+
     context = {
         'page': page,
         'subcategory': subcategory,
@@ -132,6 +141,7 @@ def products_in_subcategory(request, pk):
         'products': products,
         'custom_range': custom_range,
         'paginator': paginator,
+        'min_max_price': min_max_price,
     }
 
     return render(request, 'products/products_in_category.html', context)
@@ -157,7 +167,7 @@ def products_in_collection(request, pk):
 
 def home_page(request):
     categories = Category.objects.all()[:3]
-    top_products = Product.objects.filter(votes_ratio__gte=61)[:4]
+    top_products = Product.objects.filter(votes_ratio__gte=2)[:4]
     collections = Collection.objects.all()
 
     context = {

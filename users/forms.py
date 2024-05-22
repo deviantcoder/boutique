@@ -36,7 +36,7 @@ class ProfileForm(ModelForm):
             'first_name',
             'last_name',
             'email',
-            'image'
+            # 'image'
         ]
 
     def __init__(self, *args, **kwargs):

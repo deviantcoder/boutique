@@ -1,11 +1,10 @@
 {% load cart_filter %}
 
-<div class="row">
-
+<div class="row" id="product-container">
     {% for product in products %}
 
       <div class="col-lg-4 col-sm-6">
-        <div class="product text-center">
+        <div class="product text-center" data-price="{{ product.price }}">
           <div class="mb-3 position-relative">
           {% if product.is_new %}
               <div class="badge text-white bg-primary">New</div>
