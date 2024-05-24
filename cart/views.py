@@ -7,6 +7,7 @@ from products.models import Product
 from .utils import generate_order_id
 from django.db.models import F
 from .forms import CheckoutForm
+from django.contrib import messages
 
 
 def get_user_pending_order(request):
@@ -41,6 +42,8 @@ def add_to_cart(request, pk):
     if status:
         user_order.ref_code = generate_order_id()
         user_order.save()
+        
+    messages.success(request, 'Item was added to cart')
 
     return redirect(request.GET['next'] if 'next' in request.GET else 'products')
 
@@ -50,6 +53,9 @@ def delete_from_cart(request, pk):
     item = OrderItem.objects.filter(id=pk)
     if item.exists():
         item[0].delete()
+
+    messages.info(request, 'Item was deleted')
+
     return redirect('cart:order_details')
 
 

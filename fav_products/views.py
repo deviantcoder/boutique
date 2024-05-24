@@ -4,6 +4,7 @@ from .models import FavItem, FavoriteProducts
 from django.contrib.auth.decorators import login_required
 from products.models import Product
 from django.db.models import Q
+from django.contrib import messages
 
 
 def get_user_fav_products(request):
@@ -34,6 +35,8 @@ def add_to_fav(request, pk):
 
     fav_products.items.add(item)
 
+    messages.success(request, 'Item was added to wishlist')
+
     return redirect(request.GET['next'] if 'next' in request.GET else 'products')
 
 
@@ -45,6 +48,9 @@ def delete_from_fav(request, pk):
         )
     if item.exists():
         item[0].delete()
+
+        messages.info(request, 'Item was deleted from wishlist')
+
         return redirect(request.GET['next'] if 'next' in request.GET else 'fav_products')
-    # flash message
+
     return redirect('fav_products')
