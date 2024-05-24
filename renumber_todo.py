@@ -17,4 +17,4 @@ def renumber_todo_list(input_file):
                 f.write(line)
         f.truncate()
 
-renumber_todo_list('D:/django/boutique/todo.txt')
+renumber_todo_list('/home/nordhuman/projects/boutique/todo.txt')

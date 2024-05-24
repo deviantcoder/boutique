@@ -6,7 +6,10 @@ from django.db.models import Min, Max
 
 
 def products_view(request):
-    products, search_query = search_products(request)
+    page = 'pr'
+
+    products = Product.objects.all()
+    products, search_query = search_products(request, products)
     results = 12
     products, custom_range, paginator = pagination(request, products, results)
 
@@ -22,6 +25,7 @@ def products_view(request):
         'categories': categories,
         'user': request.user,
         'min_max_price': min_max_price,
+        'page': page,
     }
 
     return render(request, 'products/products.html', context)
@@ -101,7 +105,9 @@ def products_in_category(request, pk):
 
     category = Category.objects.get(id=pk)
     categories = Category.objects.all()
+
     products = category.product_set.all()
+    products, search_query = search_products(request, products)
 
     results = 12
     products, custom_range, paginator = pagination(request, products, results)
@@ -116,9 +122,10 @@ def products_in_category(request, pk):
         'custom_range': custom_range,
         'paginator': paginator,
         'min_max_price': min_max_price,
+        'search_query': search_query,
     }
 
-    return render(request, 'products/products_in_category.html', context)
+    return render(request, 'products/products.html', context) # products_in_category.html
 
 
 def products_in_subcategory(request, pk):
@@ -127,7 +134,9 @@ def products_in_subcategory(request, pk):
     subcategory = Subcategory.objects.get(id=pk)
     category = subcategory.category
     categories = Category.objects.all()
+
     products = subcategory.product_set.all()
+    products, search_query = search_products(request, products)
 
     products, custom_range, paginator = pagination(request, products, results=12)
 
@@ -142,9 +151,10 @@ def products_in_subcategory(request, pk):
         'custom_range': custom_range,
         'paginator': paginator,
         'min_max_price': min_max_price,
+        'search_query': search_query,
     }
 
-    return render(request, 'products/products_in_category.html', context)
+    return render(request, 'products/products.html', context) # products_in_category.html
 
 
 def products_in_collection(request, pk):
@@ -153,6 +163,9 @@ def products_in_collection(request, pk):
     collection = Collection.objects.get(id=pk)
 
     products = collection.product_set.all()
+
+    products, search_query = search_products(request, products)
+
     categories = Category.objects.all()
 
     context = {
@@ -160,9 +173,10 @@ def products_in_collection(request, pk):
         'products': products,
         'categories': categories,   
         'page': page,
+        'search_query': search_query,
     }
 
-    return render(request, 'products/products_in_category.html', context)
+    return render(request, 'products/products.html', context)
 
 
 def home_page(request):

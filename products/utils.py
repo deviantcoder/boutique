@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
-def search_products(request):
+def search_products(request, v_products=None):
     search_query = ''
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
@@ -11,7 +11,7 @@ def search_products(request):
     tags = Tag.objects.filter(name__icontains=search_query)
     subcategories = Subcategory.objects.filter(name__icontains=search_query)
 
-    products = Product.objects.distinct().filter(
+    products = v_products.distinct().filter(
         Q(title__icontains=search_query) |
         Q(description__icontains=search_query) |
         Q(tags__in=tags) |

@@ -1,0 +1,51 @@
+<!-- HERO SECTION-->
+<section class="py-5 bg-light">
+    <div class="container">
+      <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+        <div class="col-lg-6">
+
+        {% if page == 'pr' %}
+            <h1 class="h2 text-uppercase mb-0">All Products</h1>
+        {% elif page == 'pr_in_cat' %}
+            <h1 class="h2 text-uppercase mb-0">{{ category.name }}</h1>
+        {% elif page == 'pr_in_sub' %}
+            <h1 class="h2 text-uppercase mb-0">{{ category.name }}</h1>
+            <br>
+            <h5 class="text-uppercase mb-4 breadcrumb-item active">/{{ subcategory.name }}</h5>
+        {% elif page == 'pr_in_col' %}
+            <h1 class="h2 text-uppercase mb-0"><h1 class="h2 text-uppercase mb-0">{{ collection.name }}</h1></h1>
+        {% endif %}    
+
+        </div>
+        <div class="col-lg-6 text-lg-end">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+              <li class="breadcrumb-item"><a class="text-dark" href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Shop</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card mb-4" id="forms">
+                    <div class="card-body">
+                        <form class="row g-3 align-items-center" method="GET">
+                            <div class="col-9">
+                                <input class="form-control flex" type="text" placeholder="Search for products"
+                                       name="search_query" value="{{ search_query }}">
+                            </div>
+                            <div class="col-3">
+                                <button class="btn btn-primary w-100" type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </section>
