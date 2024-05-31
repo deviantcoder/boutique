@@ -1,15 +1,35 @@
-{% extends "socialaccount/base_entrance.html" %}
+{% extends 'main_2.html' %}
+{% comment %} {% extends "socialaccount/base_entrance.html" %} {% endcomment %}
 {% load i18n %}
 {% load allauth %}
+
+{% comment %} 
 {% block head_title %}
     {% trans "Login Cancelled" %}
 {% endblock head_title %}
+{% endcomment %}
+
+
 {% block content %}
+{% comment %} 
     {% element h1 %}
         {% trans "Login Cancelled" %}
     {% endelement %}
     {% url 'account_login' as login_url %}
+
     {% element p %}
-        {% blocktrans %}You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href="{{login_url}}">sign in</a>.{% endblocktrans %}
+        {% blocktrans %}You decided to cancel logging in via Google Account. If this was a mistake, please proceed to <a href="{{login_url}}">sign in</a>.{% endblocktrans %}
     {% endelement %}
+    {% endcomment %}
+
+    <div id="logreg-forms">
+
+            <p class="mb-3 font-weight-normal text-center">You decided to cancel logging in via Google Account. If this was a mistake, please proceed to sign in</p>
+            <a class="btn btn-info btn-block mt-3" href="{% url 'login_user' %}" style="color: white;"><i class="fas fa-sign-in-alt"></i> Continue</a>
+
+        </form>
+
+    </div>
+
+
 {% endblock content %}

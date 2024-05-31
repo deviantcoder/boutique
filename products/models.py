@@ -43,17 +43,6 @@ class Product(models.Model):
 
     def get_vote_count(self):
         votes_values = self.review_set.all().values_list('value', flat=True)
-        # max_vote_count = votes_values.count() * 5
-
-        # if votes_values.count() != 0:
-        #     ratio = round((sum(votes_values) / max_vote_count) * 100)
-        # else:
-        #     ratio = 0
-
-        # self.votes_ratio = ratio
-        # self.votes_total = votes_values.count()
-
-        # print(f'\n\n\n{ratio}\n\n\n')
 
         if len(votes_values) != 0:
             ratio = round(sum(votes_values) / len(votes_values))
@@ -70,21 +59,6 @@ class Product(models.Model):
     @property
     def rating_range(self):
         ratio = Product.get_vote_count(self)
-        # rating_nums = {
-        #     '0': [0, 0],
-        #     '1': [0, 21],
-        #     '2': [21, 41],
-        #     '3': [41, 61],
-        #     '4': [61, 81],
-        #     '5': [81, 101],
-        # }
-
-        # if ratio == 0:
-        #     return range(int(next(iter(rating_nums))))
-
-        # for key, value in rating_nums.items():
-        #     if ratio in range(value[0], value[1]):
-        #         return range(int(key))
 
         return range(ratio)
 
@@ -123,7 +97,6 @@ class ProductImage(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
-
     image = models.ImageField(default='default.jpg', upload_to='category_images', null=True, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
